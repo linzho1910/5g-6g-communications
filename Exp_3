@@ -1,1 +1,25 @@
+clc;
+clear;
+close all;
 
+% Parameters
+BW = 20e6;                  % Bandwidth (20 MHz)
+modOrder = [4 16 64 256];   % QPSK,16QAM,64QAM,256QAM
+labels = {'QPSK','16-QAM','64-QAM','256-QAM'};
+
+% Throughput Calculation
+bits = log2(modOrder);
+throughput = BW .* bits / 1e6;    % Mbps
+
+% Display
+disp(table(labels',bits',throughput',...
+    'VariableNames',{'Modulation','BitsPerSymbol','Throughput_Mbps'}));
+
+% Plot
+figure;
+bar(throughput);
+set(gca,'XTickLabel',labels);
+xlabel('Modulation Scheme');
+ylabel('Throughput (Mbps)');
+title('5G NR Throughput for Different Modulations');
+grid on;
